@@ -253,7 +253,6 @@ void alienShoot(){
    if(int(frameCount%50)==0){
     int shootID=int(random(n+1));
     int laserID=int (random(lList.length-1));
-    println(existalien[shootID]);
     lList[laserID]= new Laser(aList[existalien[shootID]].aX,aList[existalien[shootID]].aY);
      }
    }
