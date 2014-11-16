@@ -17,6 +17,7 @@ int countBulletFrame;    //Bullet Time Counter
 int bulletNum;           //Bullet Order Number
 int shiplife;            //shiplife
 int aliennum;
+boolean cheatRuby=false;
 /*--------Put Variables Here---------*/
 
 
@@ -206,9 +207,9 @@ void shootBullet(int frame) {
     /*---------Ship Upgrade Shoot-------------*/
     else {
       bList[bulletNum]= new Bullet(ship.posX, ship.posY, -3, 0);
-      bList[bulletNum+1]= new Bullet(ship.posX, ship.posY, -3, 2); 
-      bList[bulletNum+2]= new Bullet(ship.posX, ship.posY, -3, -2); 
-      if (bulletNum<=bList.length-6) {
+      bList[bulletNum+1]= new Bullet(ship.posX, ship.posY, -3, 1); 
+      bList[bulletNum+2]= new Bullet(ship.posX, ship.posY, -3, -1); 
+      if (bulletNum<=bList.length-12) {
         bulletNum+=3;
       } else {
         bulletNum = 0;
@@ -320,10 +321,14 @@ void loseAnimate() {
 
 /*---------Check Ruby Hit Ship-------------*/
 void checkRubyDrop(){
-  if(point>=200){
+  if(point>=200 || cheatRuby==true && ship.upGrade != true){
   ruby.show=true;
   ruby.move();
   ruby.display();
+  if(ruby.pY>=height && int(frameCount%1000)==0 ){
+  ruby.pX=int(random(width));
+  ruby.pY=-10;
+  }
   }
 }
 /*---------Check Level Up------------------*/
@@ -389,8 +394,9 @@ void removeAlien(Alien obj) {
 
 void removeRuby() {
   ruby.show = false;
-  ruby.pX = 2000;
-  ruby.pY = 2000;
+  cheatRuby = false;
+  ruby.pX = 1000;
+  ruby.pY = 1000;
 }
 
 /*---------Reset Game-------------*/
@@ -412,6 +418,7 @@ void reset() {
   /*--------Init Variable Here---------*/
   aliennum=53;
   shiplife=3;
+  cheatRuby=false;
   /*-----------Call Make Alien Function--------*/
   alienMaker();
 
@@ -450,11 +457,8 @@ void statusCtrl() {
 }
 
 void cheatKeys() {
-
   if (key == 'R'||key == 'r') {
-    ruby.show = true;
-    ruby.pX = int(random(width));
-    ruby.pY = -10;
+    cheatRuby = !cheatRuby;
     
   }
   if (key == 'Q'||key == 'q') {
