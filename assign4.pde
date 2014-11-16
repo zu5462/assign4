@@ -321,7 +321,7 @@ void loseAnimate() {
 
 /*---------Check Ruby Hit Ship-------------*/
 void checkRubyDrop(){
-  if(point>=200 || cheatRuby==true && ship.upGrade == false){
+  if((point>=200 || cheatRuby==true )&& ship.upGrade == false){
   ruby.show=true;
   ruby.move();
   ruby.display();
